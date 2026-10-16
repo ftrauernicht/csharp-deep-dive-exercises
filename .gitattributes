@@ -1,0 +1,4 @@
+# The CI runs scripts/check-bilingual-sync.sh on ubuntu. A CRLF in that file
+# turns the shebang into an unknown interpreter, so the line ending is pinned
+# here rather than left to whatever git.config says on the machine that commits.
+* text=auto eol=lf

@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    name: Build and test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Build the scaffold
+        run: dotnet build AnimalShelter.slnx --configuration Release
+
+      - name: Run the scaffold's test project
+        run: dotnet test AnimalShelter.slnx --configuration Release
+
+      - name: Build the sample solution
+        run: dotnet build solution/AnimalShelter.slnx --configuration Release
+
+      # Twice on purpose. The order in which Shelter hands out its animals
+      # follows string.GetHashCode(), which is seeded per process, so a test
+      # that accidentally depends on that order passes with one seed and fails
+      # with the next. Two runs are two seeds.
+      - name: Test the sample solution
+        run: dotnet test solution/AnimalShelter.slnx --configuration Release --no-build
+
+      - name: Test the sample solution again, with a fresh hash seed
+        run: dotnet test solution/AnimalShelter.slnx --configuration Release --no-build
+
+  link-check:
+    name: Check links
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Check links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --config .lychee.toml --no-progress .
+          token: ${{ secrets.GITHUB_TOKEN }}
+          jobSummary: true
+
+  bilingual-sync:
+    name: Check bilingual file pairs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Check en/de sync
+        run: bash scripts/check-bilingual-sync.sh
