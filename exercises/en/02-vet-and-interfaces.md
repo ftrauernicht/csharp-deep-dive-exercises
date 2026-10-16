@@ -43,7 +43,9 @@ reads `> 20`, so at exactly twenty kilograms the lower price applies. Write
 `>=` by accident while refactoring and this one test will tell you.
 
 **Second step: refactor.** Afterwards `CalculateTreatmentCost` contains no
-type check at all. **The tests from step 1 stay unchanged and green.** If you
+type check at all: the price comes from the animal itself, as a new
+property on `Animal`, and the vet does nothing but ask for it. What you
+call it is up to you. **The tests from step 1 stay unchanged and green.** If you
 have to touch a test, it was not a refactoring but a change.
 
 **Third step: a new kind of animal.** Add `Budgie`: `"Tweet"`, 10 g of food
@@ -93,10 +95,12 @@ Rules:
   class that the animals use internally, say `VaccinationRecord`, is enough
   for it.
 
-`Budgie` stays out of the interface on purpose. That is the precondition for
-2.3.
+`Cat`, `Dog` and `Rabbit` implement the interface. `Budgie` stays out of it
+on purpose, and that is the precondition for 2.3.
 
 ## 2.3 Vaccinate everyone
+
+One more method on `Veterinarian`:
 
 ```csharp
 public int VaccinateAllMissing(IEnumerable<Animal> animals)

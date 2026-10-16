@@ -136,6 +136,10 @@ stehen, und geprüft wird ab jetzt, dass es den Setter nicht gibt.
 
 Auch das implementierst du in `Animal`.
 
+`CompareTo` liefert eine Zahl statt eines `bool`: negativ heißt „this kommt
+vorher", 0 heißt gleichrangig, positiv heißt „this kommt danach". Der Betrag
+sagt nichts.
+
 - Sortierung nach `Name`, ohne Beachtung der Groß- und Kleinschreibung
 - bei gleichem Namen nach `ChipNumber`
 - `CompareTo(null)` liefert einen positiven Wert

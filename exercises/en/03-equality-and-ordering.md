@@ -135,6 +135,10 @@ the test checks that the setter does not exist.
 
 You implement this in `Animal` as well.
 
+`CompareTo` hands back a number, not a `bool`: negative means "this comes
+first", 0 means equal rank, positive means "this comes after". The
+magnitude says nothing.
+
 - ordering by `Name`, case-insensitive
 - by `ChipNumber` when the names are equal
 - `CompareTo(null)` returns a positive value

@@ -45,6 +45,11 @@ sonst nichts.
 Die Kommentare bleiben stehen, auch wenn sie falsch waren. Sie sind die
 Mitschrift.
 
+Manche Abschnitte wollen keine Zahl, sondern eine Begründung oder eine
+Entscheidung. Die gehört an dieselbe Stelle, als Kommentar über den Test,
+der sie festhält. Eine eigene Datei verlangt nur die Übersicht in 5.3, und
+dort steht es dabei.
+
 ### Der Analysator wird dir dabei im Weg stehen
 
 Das Testprojekt bringt die Analysatoren von xUnit mit, und die kennen die

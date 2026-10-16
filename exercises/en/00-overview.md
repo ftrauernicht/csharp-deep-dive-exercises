@@ -44,6 +44,11 @@ else.
 
 The comments stay, even the wrong ones. They are the record.
 
+Some sections want a reason or a decision rather than a number. It goes in
+the same place, as a comment above the test that pins it down. The only
+section that asks for a file of its own is the summary in 5.3, and it says
+so there.
+
 ### The analyzer will get in your way
 
 The test project brings xUnit's analyzers with it, and they do not know the

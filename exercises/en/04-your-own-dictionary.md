@@ -62,8 +62,9 @@ so far. The first two are in the scaffold, the third is in the list below it:
   accidentally gets back `object` instead of `KeyValuePair`. That is what you
   need `using System.Collections;` for.
 - `EqualityComparer<TKey>.Default` instead of `key.Equals(other)`: it copes
-  with `null` on both sides, finds `IEquatable<T>` without boxing, and in Z1
-  you swap out this one object to decide equality from outside.
+  with `null` on both sides, finds `IEquatable<T>` without boxing, and in
+  [Z1](06-extras.md) you swap out this one object to decide equality from
+  outside.
 
 One spot will annoy you. `TryGetValue` has to write something into `value` on
 the failure path, and with nullable analysis on, `value = default;` is a
@@ -86,9 +87,16 @@ Behavior as in .NET's `Dictionary<TKey, TValue>`:
   entries in the same order, position for position
 - key comparison through `EqualityComparer<TKey>.Default`
 
+For the view you need `yield return`. A getter that uses `yield return` does
+not run start to finish: every `yield return` hands out one element and
+stops right there, and only the demand for the next one resumes it. That is
+why the view reads the baskets at the moment somebody enumerates them. A
+`return new List<TKey>(...)` would be the copy that is not meant here. Why
+it works that way is the content of exercise 5; the rule is enough here.
+
 What is **not** asked for here: noticing that the dictionary has changed
-during an enumeration. That is extra exercise Z2, and there the real content
-is the question of what counts as a change in the first place.
+during an enumeration. That is [extra exercise Z2](06-extras.md), and there the
+real content is the question of what counts as a change in the first place.
 
 **Work test-driven: the test first, then the implementation.** It pays off
 in this exercise, because each of the methods is small on its own and they

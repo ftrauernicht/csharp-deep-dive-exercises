@@ -14,6 +14,12 @@ exercise 4 and digs into exactly one thing.
 Write a `ByNameEqualityComparer` that treats two animals as equal when their
 names match, ignoring case.
 
+The interface asks for two methods, `Equals(Animal?, Animal?)` and
+`GetHashCode(Animal)`. The second one is the trap. If `Equals` ignores case
+and the hash code does not, then "Mimi" and "mimi" come out with different
+hash codes, land in different baskets and never get compared at all. The
+same contract as in exercise 3, one level up.
+
 Use it with `new HashSet<Animal>(comparer)` and with `Distinct(comparer)`.
 
 Give `BasketDictionary` a constructor that accepts an
@@ -37,7 +43,8 @@ checked again while enumerating.
 The real question is **what counts as a structural change**. Adding a key,
 obviously. Removing one too. But overwriting a value that is already there?
 The `Dictionary` from .NET allows it during enumeration. Decide, give your
-reason, and write a test for both cases.
+reason, and write two tests: one for a change that throws, one for a change
+that does not.
 
 A hint from painful experience: if you walk your baskets with a `foreach` over
 the inner `List<T>`, your counter no longer decides, the one in `List<T>`
@@ -75,6 +82,9 @@ the ratio, and something sturdier still: that it **grows** with the count.
 Measure, print a table, then formulate an assert that holds on any machine.
 Warm up once before measuring, otherwise you are measuring the JIT compiler.
 
+xUnit does not show `Console.WriteLine`. Take an `ITestOutputHelper` in the
+constructor of the test class for the table.
+
 At 100 entries you will barely see a difference. That is not a measurement
 error. Where it stops being true is part of what you measure here.
 
@@ -91,8 +101,8 @@ hash code, `ToString`, `Deconstruct`, `==` and `!=`, plus `with`.
 
 Then the uncomfortable question: if the compiler can do all of that, why did
 you do exercise 3 at all? The answer has two parts, and the second one matters
-more. A `record` builds equality over **all** fields, and in exercise 3 that
-was exactly what should not hold.
+more. A `record Animal` would build equality over **all** fields,
+and in exercise 3 that was exactly what should not hold.
 
 > The sample solution leaves `Animal` with the `string` and puts the record
 > beside it. The rebuild would change every signature from exercises 1 to 5.
@@ -120,6 +130,10 @@ defensible, and the test records which one you decided on.
 Requests are kept in a `SortedSet<AdoptionRequest>`, ordered by the date they
 came in.
 
+You write `AdoptionRequest` yourself, in `AnimalShelter.Core.Adoption`: the
+applicant's name, the animal, the date it came in as a `DateOnly`, and
+`IComparable<AdoptionRequest>` on top.
+
 ### Prediction
 
 What happens with **two requests that carry the same date** when `CompareTo`
@@ -129,7 +143,8 @@ Predict it, then build it. And when you see the result: there is no error
 message. `Add` has a return value that almost nobody looks at.
 
 Correct the behavior. The correction is the same idea as in exercise 3.4: a
-comparison that returns 0 only when two things are one and the same.
+comparison that returns 0 only when two things are one and the same. One and
+the same means the same request here, not merely the same day.
 
 ## What you learned here
 

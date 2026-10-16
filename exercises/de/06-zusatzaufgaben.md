@@ -14,6 +14,12 @@ voraus und vertieft genau eine Sache.
 Schreib einen `ByNameEqualityComparer`, der zwei Tiere als gleich ansieht, wenn
 ihre Namen übereinstimmen, ohne Beachtung der Groß- und Kleinschreibung.
 
+Das Interface verlangt zwei Methoden, `Equals(Animal?, Animal?)` und
+`GetHashCode(Animal)`. Die zweite ist die Falle. Ignoriert `Equals` die
+Groß- und Kleinschreibung, der Hashcode aber nicht, dann liefern „Mimi" und
+„mimi" verschiedene Hashcodes, landen in verschiedenen Körben und werden nie
+miteinander verglichen. Derselbe Vertrag wie in Aufgabe 3, eine Ebene höher.
+
 Benutz ihn mit `new HashSet<Animal>(comparer)` und mit `Distinct(comparer)`.
 
 Gib `BasketDictionary` einen Konstruktor, der einen `IEqualityComparer<TKey>`
@@ -38,8 +44,9 @@ hochgezählt und beim Aufzählen gegengeprüft wird.
 Die eigentliche Frage ist, **was als strukturelle Änderung zählt**. Einen
 Schlüssel hinzufügen offensichtlich. Einen entfernen auch. Aber einen
 vorhandenen Wert zu überschreiben? Das `Dictionary` aus .NET erlaubt es
-während der Aufzählung. Entscheide dich, begründe es, und schreib für beide
-Fälle einen Test.
+während der Aufzählung. Entscheide dich, begründe es, und schreib zwei
+Tests: einen für eine Änderung, die wirft, und einen für eine, die es nicht
+tut.
 
 Ein Hinweis aus leidvoller Erfahrung: Wenn du deine Körbe mit `foreach` über
 die innere `List<T>` durchläufst, entscheidet nicht mehr dein Zähler, sondern
@@ -77,6 +84,9 @@ Verhältnis. Noch belastbarer ist, dass es mit der Anzahl **wächst**.
 Miss, drucke eine Tabelle, und formulier dann einen Assert, der auf jedem
 Rechner hält. Wärm vor dem Messen einmal auf, sonst misst du den JIT-Compiler.
 
+`Console.WriteLine` zeigt xUnit nicht an. Für die Tabelle nimm einen
+`ITestOutputHelper` im Konstruktor der Testklasse.
+
 Bei 100 Einträgen wirst du kaum einen Unterschied sehen. Das ist kein
 Messfehler. Ab wann es nicht mehr stimmt, misst du hier selbst.
 
@@ -94,8 +104,8 @@ Wertgleichheit, Hashcode, `ToString`, `Deconstruct`, `==` und `!=`, dazu
 
 Danach die unbequeme Frage: Wenn der Compiler das alles kann, warum hast du
 Aufgabe 3 dann überhaupt gemacht? Die Antwort hat zwei Teile, und der zweite
-ist der wichtigere: ein `record` erzeugt Gleichheit über **alle** Felder, und
-in Aufgabe 3 sollte genau das nicht gelten.
+ist der wichtigere: ein `record Animal` würde Gleichheit über **alle** Felder
+erzeugen, und in Aufgabe 3 sollte genau das nicht gelten.
 
 > Die Musterlösung lässt `Animal` beim `string` und stellt den Record daneben.
 > Der Umbau würde jede Signatur aus den Aufgaben 1 bis 5 ändern. Mach ihn auf
@@ -123,6 +133,10 @@ vertretbar, und der Test hält fest, wofür du dich entschieden hast.
 Anfragen werden nach Eingangsdatum in einem `SortedSet<AdoptionRequest>`
 verwaltet.
 
+`AdoptionRequest` legst du selbst an, in `AnimalShelter.Core.Adoption`: der
+Name des Interessenten, das Tier, das Eingangsdatum als `DateOnly`, und
+`IComparable<AdoptionRequest>` darauf.
+
 ### Vorhersage
 
 Was passiert bei **zwei Anfragen mit identischem Datum**, wenn `CompareTo` nur
@@ -132,7 +146,8 @@ Sag es voraus, dann bau es. Und wenn du das Ergebnis siehst: Es gibt keine
 Fehlermeldung. `Add` liefert einen Rückgabewert, den fast niemand ansieht.
 
 Korrigier das Verhalten. Die Korrektur ist dieselbe Idee wie in Aufgabe 3.4:
-ein Vergleich, der nur dann 0 liefert, wenn zwei Dinge wirklich dasselbe sind.
+ein Vergleich, der nur dann 0 liefert, wenn zwei Dinge wirklich dasselbe
+sind. Dasselbe heißt hier: dieselbe Anfrage, nicht bloß derselbe Tag.
 
 ## Was du hier gelernt hast
 

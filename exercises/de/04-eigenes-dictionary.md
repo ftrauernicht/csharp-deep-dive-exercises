@@ -65,8 +65,8 @@ Liste darunter:
   brauchst du `using System.Collections;`.
 - `EqualityComparer<TKey>.Default` statt `key.Equals(other)`: Es kommt mit
   `null` auf beiden Seiten klar, findet `IEquatable<T>` ohne Boxing, und bei
-  Z1 tauschst du genau dieses eine Objekt aus, um Gleichheit von außen zu
-  bestimmen.
+  [Z1](06-zusatzaufgaben.md) tauschst du genau dieses eine Objekt aus, um
+  Gleichheit von außen zu bestimmen.
 
 Eine Stelle wird dich ärgern. `TryGetValue` muss auf dem Fehlschlag-Pfad etwas
 in `value` schreiben, und `value = default;` ist bei eingeschalteter
@@ -89,9 +89,18 @@ Verhalten wie beim `Dictionary<TKey, TValue>` aus .NET:
   Einträge in derselben Reihenfolge, Position für Position
 - Schlüsselvergleich über `EqualityComparer<TKey>.Default`
 
+Für die Sicht brauchst du `yield return`. Ein Getter, der `yield return`
+benutzt, läuft nicht in einem Zug durch: Jedes `yield return` gibt ein
+Element heraus und hält an dieser Stelle an, und erst die Nachfrage nach dem
+nächsten Element setzt ihn fort. Deshalb liest die Sicht die Körbe in dem
+Moment, in dem jemand sie aufzählt. Ein `return new List<TKey>(...)` wäre
+die Kopie, die hier gerade nicht gemeint ist. Warum das so funktioniert, ist
+der Inhalt von Aufgabe 5; hier genügt die Regel.
+
 Was hier **nicht** verlangt ist: zu merken, dass sich das Dictionary während
-einer Aufzählung verändert hat. Das ist Zusatzaufgabe Z2, und dort ist die
-Frage, was überhaupt als Änderung zählt, der eigentliche Inhalt.
+einer Aufzählung verändert hat. Das ist
+[Zusatzaufgabe Z2](06-zusatzaufgaben.md), und dort ist die Frage, was überhaupt
+als Änderung zählt, der eigentliche Inhalt.
 
 **Geh testgetrieben vor: zuerst der Test, dann die Implementierung.** Bei dieser
 Aufgabe zahlt es sich aus, weil jede der Methoden für sich klein ist und erst

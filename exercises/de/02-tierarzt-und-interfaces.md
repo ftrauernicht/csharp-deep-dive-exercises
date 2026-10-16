@@ -44,7 +44,9 @@ niedrigere Preis. Wer beim Umbau versehentlich `>=` schreibt, merkt es an
 diesem einen Test.
 
 **Zweiter Schritt: umbauen.** Danach enthält `CalculateTreatmentCost` keine
-Typprüfung mehr. **Die Tests aus Schritt 1 bleiben unverändert und grün.** Wenn
+Typprüfung mehr: Der Preis kommt vom Tier selbst, als neue Eigenschaft an
+`Animal`, und der Tierarzt fragt sie nur noch ab. Wie du sie nennst, bleibt
+dir überlassen. **Die Tests aus Schritt 1 bleiben unverändert und grün.** Wenn
 du einen Test anfassen musst, war es kein Umbau, sondern eine Änderung.
 
 **Dritter Schritt: eine neue Tierart.** Füg `Budgie` hinzu: Wellensittich,
@@ -93,9 +95,12 @@ Regeln:
   derselben Logik heißt nicht dreimal dieselbe Logik. Eine Klasse, die die
   Tiere intern benutzen — etwa `VaccinationRecord` — reicht dafür.
 
-`Budgie` bleibt absichtlich außen vor. Das ist die Voraussetzung für 2.3.
+`Cat`, `Dog` und `Rabbit` implementieren das Interface. `Budgie` bleibt
+absichtlich außen vor, und das ist die Voraussetzung für 2.3.
 
 ## 2.3 Alle impfen
+
+Noch eine Methode an `Veterinarian`:
 
 ```csharp
 public int VaccinateAllMissing(IEnumerable<Animal> animals)
