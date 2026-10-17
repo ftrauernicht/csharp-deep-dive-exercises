@@ -41,6 +41,20 @@ steht im [Überblick](exercises/de/00-ueberblick.md).
 Fünf Hauptaufgaben bauen aufeinander auf, sieben Zusatzaufgaben hängen jeweils
 an einer davon und sind untereinander unabhängig.
 
+## Die Aufgaben auf einen Blick
+
+Die Zeitangaben sind grob. Ein Abend meint zwei bis drei Stunden Arbeit. Die Texte sind
+kurz, weil die Arbeit nicht im Lesen steckt.
+
+| # | Aufgabe | Worum es geht | Setzt voraus | Dauer |
+|---|---|---|---|---|
+| 1 | Die Tierfamilie | Vererbung und Polymorphie, das Urteil spricht der Test | nichts | ein Abend |
+| 2 | Tierarzt und Interfaces | Interfaces, und die Entscheidung, wer sie implementiert | Aufgabe 1 | ein Abend |
+| 3 | Gleichheit, Hashcode und Sortierung | `Equals`, `GetHashCode`, `IComparable` und `IComparer` | Aufgaben 1 und 2 | zwei Abende |
+| 4 | Ein eigenes Dictionary | Eine Hashtabelle aus Arrays und Buckets | Aufgaben 1 bis 3 | zwei Abende |
+| 5 | LINQ | Verzögerte Ausführung, gemessen statt vermutet | Aufgaben 1 bis 4 | zwei Abende |
+| Z1 bis Z7 | Zusatzaufgaben | Sieben Anschlüsse, jeder an einer der fünf und unabhängig voneinander | die zugehörige Aufgabe | je ein Abend |
+
 ## Was du brauchst
 
 | Werkzeug | Wofür |

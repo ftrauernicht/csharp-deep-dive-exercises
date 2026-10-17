@@ -41,6 +41,20 @@ the [overview](exercises/en/00-overview.md).
 Five main exercises build on each other. Seven extras each hang off one of
 them and are independent of one another.
 
+## The exercises at a glance
+
+The times are rough. An evening means two to three hours of actual work. The texts are
+short because the work is not in reading them.
+
+| # | Exercise | What it covers | Requires | Time |
+|---|---|---|---|---|
+| 1 | The animal family | Inheritance and polymorphism, with the test passing judgment | nothing | an evening |
+| 2 | Vet and interfaces | Interfaces, and deciding who implements them | Exercise 1 | an evening |
+| 3 | Equality, hash code and ordering | `Equals`, `GetHashCode`, `IComparable` and `IComparer` | Exercises 1 and 2 | two evenings |
+| 4 | Your own dictionary | A hash table built out of arrays and buckets | Exercises 1 to 3 | two evenings |
+| 5 | LINQ | Deferred execution, measured instead of assumed | Exercises 1 to 4 | two evenings |
+| Z1 to Z7 | Extras | Seven follow-ups, each hanging off one of the five and independent of one another | the exercise it belongs to | an evening each |
+
 ## What you need
 
 | Tool | For what |
